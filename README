@@ -1,0 +1,15 @@
+3rd的使用：
+
+用于存放第三方依赖库，源码编译
+
+1.mkdir -p Glog/src
+
+2.cd Glog/src & git clone ...
+
+3.cd glog & mkdir build
+
+4.cmake .. -DCMAKE_INSTALL_PREFIX=~/agv_ws/3rd/Glog
+
+5.make
+
+6.make install
