@@ -1,0 +1,5 @@
+geometry_msgs/PoseStamped nav_b_goal
+std_msgs/Float32 nav_speed
+---
+uint16 nav_status
+---

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>amr_smac_planner</name>
+  <version>1.1.20</version>
+  <description>Smac global planning plugin: A*, Hybrid-A*, State Lattice</description>
+  <maintainer email="stevenmacenski@gmail.com">Steve Macenski</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>rclcpp_action</depend>
+  <depend>rclcpp_lifecycle</depend>
+  <depend>visualization_msgs</depend>
+  <depend>amr_util</depend>
+  <depend>amr_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>builtin_interfaces</depend>
+  <depend>tf2_ros</depend>
+  <depend>amr_costmap_2d</depend>
+  <depend>amr_core</depend>
+  <depend>pluginlib</depend>
+  <depend>eigen3_cmake_module</depend>
+  <depend>eigen</depend>
+  <depend>ompl</depend>
+  <depend>nlohmann-json-dev</depend>
+  <depend>angles</depend>
+
+  <test_depend>ament_lint_common</test_depend>
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_cmake_gtest</test_depend>
+  <test_depend>ament_cmake_pytest</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <amr_core plugin="${prefix}/smac_plugin_hybrid.xml" />
+    <amr_core plugin="${prefix}/smac_plugin_2d.xml" />
+    <amr_core plugin="${prefix}/smac_plugin_lattice.xml" />
+  </export>
+</package>

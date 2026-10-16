@@ -1,0 +1,10 @@
+nav_msgs/Path global_path
+std_msgs/Float32 nav_speed
+string controller_id
+string goal_checker_id
+
+---
+uint16 nav_status
+uint16 NAV_SUCCESS = 101
+uint16 NAV_FAILED = 401
+---

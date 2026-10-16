@@ -1,0 +1,34 @@
+controller_server:
+  ros__parameters:
+    MPCController:
+      # ── 前瞻距离 ──────────────────────────────────────────
+      lookahead_dist_min: 0.2
+      lookahead_dist_max: 3.0
+      lookahead_dist_close_to_goal: 0.1
+
+      # ── 加速度约束 ────────────────────────────────────────
+      acc_x_limit: 0.5              # x 方向加速度上限 [m/s²]
+      acc_y_limit: 0.5              # y 方向加速度上限 [m/s²]
+      acc_theta_limit: 0.5          # 角加速度上限 [rad/s²]
+
+      # ── 速度边界 ──────────────────────────────────────────
+      min_vel_x: -0.5               # x 速度下界 [m/s]
+      min_vel_y: -0.5               # y 速度下界 [m/s]
+      min_vel_theta: -0.5           # 角速度下界 [rad/s]
+      max_vel_x: 0.5                # x 速度上界 [m/s]
+      max_vel_y: 0.5                # y 速度上界 [m/s]
+      max_vel_theta: 0.5            # 角速度上界 [rad/s]
+      max_vel_trans: 0.5            # 平移合速度上限 √(vx²+vy²) [m/s]
+
+      # ── 代价函数权重 ──────────────────────────────────────
+      w_trans: 0.5                  # 位置追踪误差权重
+      w_orient: 0.5                 # 姿态追踪误差权重
+      w_control: 0.5                # 控制量平滑权重
+      w_terminal: 0.5               # 终端代价放大系数
+
+      # ── 算法参数 ──────────────────────────────────────────
+      low_pass_gain: 0.5            # 低通滤波增益 (0~1, 越小越平滑)
+      opt_tolerance: 0.00001        # 优化器收敛容差
+      prediction_horizon: 0.5       # 预测时域 [秒]
+      control_steps: 3              # 控制步数 N
+      waiting_time: 3.0             # 停障等待时间 [秒]

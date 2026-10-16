@@ -1,0 +1,13 @@
+uint8 STARTUP = 0 #启动节点
+uint8 PAUSE = 1 #暂停节点
+uint8 RESUME = 2 #恢复节点
+uint8 RESET = 3 #重置节点
+uint8 SHUTDOWN = 4 #关闭节点
+
+uint8 command
+string[] node_names
+---
+bool success
+#测试命令
+#指定节点： ros2 service call /amr_lifecycle_manager/manage_amr_nodes amr_msgs/srv/ManageAmrNodes   "{command: 2, node_names: [amr_bt_navigator]}"
+#操作全部节点(什么都不传)：ros2 service call /amr_lifecycle_manager/manage_amr_nodes amr_msgs/srv/ManageAmrNodes "{command: 1}"

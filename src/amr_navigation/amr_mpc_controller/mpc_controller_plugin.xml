@@ -1,0 +1,7 @@
+<class_libraries>
+  <library path="mpc_controller">
+    <class type="amr_mpc_controller::MPCController" base_class_type="amr_core::Controller">
+      <description>MPC of amr to follow path</description>
+    </class>
+  </library>
+</class_libraries>

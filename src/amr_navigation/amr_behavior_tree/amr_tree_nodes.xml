@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<root>
+  <TreeNodesModel>
+    <Action ID="GenerateFollowPath">
+        <input_port name="nav_a_goal"> </input_port>
+        <input_port name="nav_speed"> </input_port>
+        <input_port name="planner_id" default="NavAPlanner"/>
+        <input_port name="server_name"> </input_port>
+        <input_port name="server_timeout"> </input_port>
+        <output_port name="global_path"> </output_port>
+        <output_port name="nav_status"> </output_port>
+
+    </Action>
+
+    <Action ID="LocalControl">
+      <input_port name="global_path"> </input_port>
+      <input_port name="nav_speed"> </input_port>
+      <input_port name="controller_id" default="MPCController"/>
+      <input_port name="goal_checker_id"> </input_port>
+      <input_port name="server_name"> </input_port>
+      <input_port name="server_timeout"> </input_port>
+      <output_port name="nav_status"> </output_port>
+
+    </Action>
+
+    <Action ID="PlanGlobalPath">
+    <input_port name="nav_b_goal"> </input_port>
+    <input_port name="nav_speed"> </input_port>
+    <input_port name="planner_id" default="NavBPlanner"/>
+    <input_port name="server_name"> </input_port>
+    <input_port name="server_timeout"> </input_port>
+    <output_port name="global_path"> </output_port>
+    <output_port name="nav_status"> </output_port>
+
+    </Action>
+
+    <Control ID="PipelineSequence"/> 
+  </TreeNodesModel>
+</root>

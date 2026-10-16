@@ -1,0 +1,5 @@
+<library path="amr_smac_planner_2d">
+  <class name="amr_smac_planner/SmacPlanner2D" type="amr_smac_planner::SmacPlanner2D" base_class_type="amr_core::GlobalPlanner">
+    <description>2D A* SMAC Planner</description>
+  </class>
+</library>

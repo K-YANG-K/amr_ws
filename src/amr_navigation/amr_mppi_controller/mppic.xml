@@ -1,0 +1,7 @@
+<class_libraries>
+  <library path="mppi_controller">
+    <class type="amr_mppi_controller::MPPIController" base_class_type="amr_core::Controller">
+      <description>MPPI Controller for amr</description>
+    </class>
+  </library>
+</class_libraries>

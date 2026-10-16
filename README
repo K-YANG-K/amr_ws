@@ -8,7 +8,7 @@
 
 3.cd glog & mkdir build
 
-4.cmake .. -DCMAKE_INSTALL_PREFIX=~/agv_ws/3rd/Glog
+4.cmake .. -DCMAKE_INSTALL_PREFIX=~/amr_ws/3rd/Glog
 
 5.make
 

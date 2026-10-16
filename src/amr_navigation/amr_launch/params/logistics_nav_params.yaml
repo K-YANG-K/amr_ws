@@ -1,0 +1,185 @@
+
+robot_state_publisher:
+  ros__parameters:
+    use_sim_time: True
+
+amr_bt_navigator:
+  ros__parameters:
+    use_sim_time: True
+    global_frame: map
+    robot_base_frame: base_link
+    transform_tolerance: 0.1
+    amr_nav_mode_a_bt_xml: amr_nav_mode_a_bt.xml #导航模式A行为树
+    nav_a_goal_blackboard_id: nav_a_goal #导航A目标 blackboard的key
+    nav_a_speed_blackboard_id: nav_speed #导航A速度 blackboard的key
+
+    amr_nav_mode_b_bt_xml: amr_nav_mode_b_bt.xml #导航模式B行为树
+    nav_b_goal_blackboard_id: nav_b_goal #导航B目标 blackboard的key
+    nav_b_speed_blackboard_id: nav_speed #导航B速度 blackboard的key
+    bt_nodes:
+      - generate_follow_path_action_bt_node #行为树节点
+      - local_control_action_bt_node
+      - plan_global_path_action_bt_node
+      - pipeline_sequence_bt_node
+
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      update_frequency: 5.0
+      publish_frequency: 2.0
+      global_frame: map
+      robot_base_frame: base_link
+      use_sim_time: True
+      rolling_window: true
+      width: 4
+      height: 4
+      resolution: 0.05
+      footprint: "[[0.3, 0.2], [0.3, -0.2], [-0.3, -0.2], [-0.3, 0.2]]"
+      plugins: ["obstacle_layer"]
+      inflation_layer:
+        plugin: "amr_costmap_2d::InflationLayer"
+        cost_scaling_factor: 3.0
+        inflation_radius: 0.55
+      obstacle_layer:
+        plugin: "amr_costmap_2d::ObstacleLayer"
+        enabled: True
+        observation_sources: scan
+        scan:
+          topic: /scan
+          max_obstacle_height: 2.0
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.0
+      voxel_layer:
+        plugin: "amr_costmap_2d::VoxelLayer"
+        enabled: True
+        publish_voxel_map: True
+        origin_z: 0.0
+        z_resolution: 0.05
+        z_voxels: 16
+        max_obstacle_height: 2.0
+        mark_threshold: 0
+        observation_sources: scan
+        scan:
+          topic: /scan
+          max_obstacle_height: 2.0
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.0
+      static_layer:
+        plugin: "amr_costmap_2d::StaticLayer"
+        map_subscribe_transient_local: True
+      always_send_full_costmap: True
+
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      update_frequency: 1.0
+      publish_frequency: 1.0
+      global_frame: map
+      robot_base_frame: base_link
+      use_sim_time: True
+      footprint: "[[0.3, 0.2], [0.3, -0.2], [-0.3, -0.2], [-0.3, 0.2]]"
+      resolution: 0.05
+      track_unknown_space: true
+      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      obstacle_layer:
+        plugin: "amr_costmap_2d::ObstacleLayer"
+        enabled: True
+        observation_sources: scan pointcloud
+        scan:
+          topic: /scan
+          max_obstacle_height: 2.0
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.0
+        pointcloud:
+          topic: /fused_point_cloud
+          data_type: "PointCloud2"
+          sensor_frame: ""
+          min_obstacle_height: 0.1    
+          max_obstacle_height: 2.0
+          marking: True
+          clearing: True
+          obstacle_max_range: 6.0
+          obstacle_min_range: 0.0
+          raytrace_max_range: 6.2
+          raytrace_min_range: 0.0
+          expected_update_rate: 0.0
+          observation_persistence: 0.0
+      static_layer:
+        plugin: "amr_costmap_2d::StaticLayer"
+        map_subscribe_transient_local: True
+      inflation_layer:
+        plugin: "amr_costmap_2d::InflationLayer"
+        cost_scaling_factor: 3.0
+        inflation_radius: 0.55
+      always_send_full_costmap: True
+
+map_server:
+  ros__parameters:
+    use_sim_time: True
+    yaml_filename: ""
+
+map_saver:
+  ros__parameters:
+    use_sim_time: True
+    save_map_timeout: 5.0
+    free_thresh_default: 0.25
+    occupied_thresh_default: 0.65
+    map_subscribe_transient_local: True
+
+planner_server:
+  ros__parameters:
+    use_sim_time: True
+    debug_enable: True
+    planner_plugins: ["NavAPlanner","NavBPlanner"]
+    planner_types: [amr_follow_path_generator/FollowPathGenerator,
+                    amr_navfn_planner/NavfnPlanner]
+    NavAPlanner:
+      plugin: "amr_follow_path_generator/FollowPathGenerator"
+      resolution: 0.02
+      min_sample_num: 10
+    NavBPlanner:
+      plugin: "amr_smac_planner/SmacPlannerHybrid"
+       # "amr_navfn_planner/NavfnPlanner" 
+       # "amr_smac_planner/SmacPlanner2D"
+       # "amr_smac_planner/SmacPlannerLattice"
+       # "amr_smac_planner/SmacPlannerHybrid"
+      tolerance: 0.5
+      use_astar: false
+      allow_unknown: true
+controller_server:
+  ros__parameters:
+    use_sim_time: True
+    controller_frequency: 20.0
+    progress_checker_plugin: "progress_checker"
+    goal_checker_plugins: ["general_goal_checker"]
+    controller_plugins: ["MPCController","MPPIController"] 
+
+    progress_checker:
+      plugin: "amr_controller::SimpleProgressChecker"
+      required_movement_radius: 0.5
+      movement_time_allowance: 10.0
+
+    general_goal_checker:
+      stateful: True
+      plugin: "amr_controller::SimpleGoalChecker"
+      xy_goal_tolerance: 0.25
+      yaw_goal_tolerance: 0.25
+
+robot_state_publisher:
+  ros__parameters:
+    use_sim_time: True

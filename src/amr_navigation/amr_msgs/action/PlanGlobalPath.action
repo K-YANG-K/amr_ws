@@ -1,0 +1,9 @@
+geometry_msgs/PoseStamped nav_b_goal
+string planner_id 
+std_msgs/Float32 nav_speed
+---
+nav_msgs/Path global_path
+uint16 nav_status
+uint16 GENERATE_ERROR = 402
+
+---

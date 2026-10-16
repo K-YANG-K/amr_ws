@@ -1,0 +1,5 @@
+<library path="amr_smac_planner">
+	<class name="amr_smac_planner/SmacPlannerHybrid" type="amr_smac_planner::SmacPlannerHybrid" base_class_type="amr_core::GlobalPlanner">
+	  <description>Hybrid-A* SMAC planner</description>
+	</class>
+</library>

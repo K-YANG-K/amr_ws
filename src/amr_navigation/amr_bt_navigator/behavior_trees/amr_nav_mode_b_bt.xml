@@ -1,0 +1,12 @@
+<root main_tree_to_execute="MainTree">
+    <BehaviorTree ID="MainTree">
+      <PipelineSequence name="NavBToPose">
+        <PlanGlobalPath nav_b_goal="{nav_b_goal}" nav_speed="{nav_speed}" global_path="{global_path}" nav_status="{nav_status}" planner_id="NavBPlanner"/>
+        <LocalControl global_path="{global_path}" nav_speed="{nav_speed}" nav_status="{nav_status}" controller_id="MPPIController"/>
+      </PipelineSequence>
+    </BehaviorTree>
+</root>    
+
+
+
+ <!-- <AlwaysSuccess/> -->

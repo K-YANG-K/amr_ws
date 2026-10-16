@@ -1,0 +1,5 @@
+<library path="follow_path_generator">
+	<class name="amr_follow_path_generator/FollowPathGenerator" type="amr_follow_path_generator::FollowPathGenerator" base_class_type="amr_core::GlobalPlanner">
+	  <description></description>
+	</class>
+</library>

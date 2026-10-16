@@ -1,0 +1,8 @@
+string map_topic
+string map_url
+string image_format
+string map_mode
+float32 free_thresh
+float32 occupied_thresh
+---
+bool result
